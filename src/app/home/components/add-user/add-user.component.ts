@@ -1,19 +1,18 @@
-import { UserDataService } from './../../../shared/services/user-data.service';
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
+import { UserDataService } from "./../../../shared/services/user-data.service";
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.scss'],
+  selector: "app-add-user",
+  templateUrl: "./add-user.component.html",
+  styleUrls: ["./add-user.component.scss"],
 })
 export class AddUserComponent implements OnInit {
-  // @Input() brand!: Brand;
-  brand: any;
   addUserForm!: FormGroup;
-
+  emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  nameValidation = /^[a-zA-Z]+$/;
   constructor(
     private formBuilder: FormBuilder,
     private activeModal: NgbActiveModal,
@@ -25,8 +24,8 @@ export class AddUserComponent implements OnInit {
     return this.addUserForm.valid;
   }
 
-  get getBrandLogo(): string {
-    return this.addUserForm.get('logo')?.value;
+  get getUserProfileImage(): string {
+    return this.addUserForm.get("profile_image")?.value;
   }
 
   get modal(): NgbActiveModal {
@@ -35,48 +34,46 @@ export class AddUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.addUserForm = this.formBuilder.group({
-      name: [
+      first_name: [
         null,
         [
           Validators.minLength(2),
           Validators.maxLength(25),
           Validators.required,
+          Validators.pattern(this.nameValidation),
         ],
       ],
-      description: [
+      last_name: [
         null,
         [
-          Validators.minLength(20),
-          Validators.maxLength(150),
+          Validators.minLength(2),
+          Validators.maxLength(25),
           Validators.required,
+          Validators.pattern(this.nameValidation),
         ],
       ],
-      logo: [null, [Validators.required]],
+      profile_image: [null, [Validators.required]],
+      email: [
+        null,
+        [Validators.required, Validators.pattern(this.emailValidation)],
+      ],
+      dob: [null, [Validators.required]],
     });
-    if (this.brand) {
-      this.addUserForm.patchValue({
-        name: this.brand.name,
-        description: this.brand.description,
-        logo: this.brand.logo,
-      });
-    }
   }
 
   onImageChange(event: any) {
     var reader = new FileReader();
     reader.onload = (event: any) => {
       this.addUserForm.patchValue({
-        logo: event.target.result,
+        profile_image: event.target.result,
       });
     };
     reader.readAsDataURL(event.target.files[0]);
   }
 
   onSave() {
-    if (this.brand) {
-      var paylaod = this.addUserForm.value;
-      paylaod['brandId'] = this.brand._id;
-    } else {
-    }
+    console.log(this.addUserForm.value);
+
+    this.dataService.addNewUser(this.addUserForm.value);
   }
 }

@@ -1,1 +1,38 @@
-<p>list-user works!</p>
+<div class="container p-4 mt-5">
+
+    <div class="table w-100" *ngIf="usersList.length">
+        <thead>
+            <tr>
+                <th>Profile Image</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Date Of Birth</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of usersList">
+                <td>
+                    <img class="user-image" src="{{user.profile_image}}" alt="user-image">
+                </td>
+                <td>
+                    <h5>{{user.first_name}}</h5>
+                </td>
+                <td>
+                    <h5>{{user.last_name}}</h5>
+                </td>
+                <td>
+                    <h5>{{user.email}}</h5>
+                </td>
+                <td>
+                    <h5>{{user.dob | date}}</h5>
+                </td>
+
+            </tr>
+        </tbody>
+    </div>
+
+    <div class="w-100" *ngIf="!usersList.length">
+        No User Found.
+    </div>
+</div>

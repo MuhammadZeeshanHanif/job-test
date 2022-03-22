@@ -1,25 +1,36 @@
-<div class="modal-content">
+<div class="modal-content p-3">
   <div class="modal-header">
-    <h5>Add a Brand</h5>
+    <h5>Add a User</h5>
   </div>
   <div class="modal-body">
     <form [formGroup]="addUserForm">
-      <label>Brand Logo</label>
-      <div class="image-container">
-        <input #imagePicker class="d-none" type="file" name="brand-logo" id="brand-logo"
+      <label>Profile Image *</label>
+      <div class="image-container mt-2">
+        <input #imagePicker class="d-none" type="file" name="user-image" id="user-image"
           (change)="onImageChange($event)">
-        <img class="brand-logo" [src]="getBrandLogo" onerror="this.src='../../../assets/add-image.png'" alt="brand-logo"
-          (click)="imagePicker.click();">
+        <img class="user-image" [src]="getUserProfileImage" onerror="this.src='../../../assets/add-image.png'"
+          alt="user-image" (click)="imagePicker.click();">
       </div>
-      <label for="brand-name">Brand Name</label>
-      <input id="brand-name" type="text" class="form-control" placeholder="Brand Name" formControlName="name">
-      <div class="row">
-        <div class="col-md-12">
-          <label for="brand-description">Brand Description (20 - 150 characters)</label>
-          <textarea class="form-control" name="descrpition" id="brand-description" rows="4"
-            placeholder="Enter brand description..." formControlName="description"></textarea>
-        </div>
+      <div class="mt-2">
+        <label for="first-name">First Name *</label>
+        <input id="first-name" type="text" class="form-control" placeholder="First Name" formControlName="first_name">
       </div>
+
+      <div class="mt-2">
+        <label for="last-name">Last Name *</label>
+        <input id="last-name" type="text" class="form-control" placeholder="Last Name" formControlName="last_name">
+      </div>
+
+      <div class="mt-2">
+        <label for="last-name">Email *</label>
+        <input id="email" type="text" class="form-control" placeholder="Email" formControlName="email">
+      </div>
+
+      <div class="mt-2">
+        <label for="dob">Date of Birth *</label>
+        <input id="dob" type="date" class="form-control" placeholder="Date of Birth" formControlName="dob">
+      </div>
+
     </form>
   </div>
   <div class="modal-footer">
