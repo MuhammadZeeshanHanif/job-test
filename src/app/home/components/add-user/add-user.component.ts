@@ -11,8 +11,8 @@ import { ToastrService } from "ngx-toastr";
 })
 export class AddUserComponent implements OnInit {
   addUserForm!: FormGroup;
-  emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  nameValidation = /^[a-zA-Z]+$/;
+  emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // email validation regex
+  nameValidation = /^[a-zA-Z]+$/; // string  validation regex
   constructor(
     private formBuilder: FormBuilder,
     private activeModal: NgbActiveModal,
@@ -61,6 +61,7 @@ export class AddUserComponent implements OnInit {
     });
   }
 
+  //on image select method
   onImageChange(event: any) {
     var reader = new FileReader();
     reader.onload = (event: any) => {
@@ -71,9 +72,9 @@ export class AddUserComponent implements OnInit {
     reader.readAsDataURL(event.target.files[0]);
   }
 
+  //on save button click method
   onSave() {
-    console.log(this.addUserForm.value);
-
     this.dataService.addNewUser(this.addUserForm.value);
+    this.modal.close();
   }
 }

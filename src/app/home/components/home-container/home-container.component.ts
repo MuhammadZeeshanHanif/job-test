@@ -17,25 +17,13 @@ export class HomeContainerComponent implements OnInit {
     private toastr: ToastrService
   ) {}
 
-  ngOnInit(): void {
-    this.getBrandsListing();
-  }
-
-  getBrandsListing() {}
+  ngOnInit(): void {}
 
   onUserAdd() {
-    const modelRef = this.modalService
-      .open(AddUserComponent, {
-        centered: true,
-        size: "md",
-        backdrop: "static",
-      })
-      .result.then((fetchListing) => {});
+    const modelRef = this.modalService.open(AddUserComponent, {
+      centered: true,
+      size: "md",
+      backdrop: "static",
+    });
   }
-
-  searchBrand() {}
-
-  editBrand() {}
-
-  deleteBrand() {}
 }
