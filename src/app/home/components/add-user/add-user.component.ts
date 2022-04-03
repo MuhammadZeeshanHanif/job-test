@@ -32,10 +32,14 @@ export class AddUserComponent implements OnInit {
     return this.activeModal;
   }
 
+  get formControl() {
+    return this.addUserForm.controls;
+  }
+
   ngOnInit(): void {
     this.addUserForm = this.formBuilder.group({
       first_name: [
-        null,
+        '',
         [
           Validators.minLength(2),
           Validators.maxLength(25),
@@ -44,7 +48,7 @@ export class AddUserComponent implements OnInit {
         ],
       ],
       last_name: [
-        null,
+        '',
         [
           Validators.minLength(2),
           Validators.maxLength(25),
@@ -52,12 +56,12 @@ export class AddUserComponent implements OnInit {
           Validators.pattern(this.nameValidation),
         ],
       ],
-      profile_image: [null, [Validators.required]],
+      profile_image: ['', [Validators.required]],
       email: [
-        null,
+        '',
         [Validators.required, Validators.pattern(this.emailValidation)],
       ],
-      dob: [null, [Validators.required]],
+      dob: ['', [Validators.required]],
     });
   }
 
@@ -75,6 +79,7 @@ export class AddUserComponent implements OnInit {
   //on save button click method
   onSave() {
     this.dataService.addNewUser(this.addUserForm.value);
+    this.toastr.success("User added successfully.")
     this.modal.close();
   }
 }

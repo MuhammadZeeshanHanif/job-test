@@ -1,40 +1,50 @@
 <div class="modal-content p-3">
-  <div class="modal-header">
-    <h5>Add a User</h5>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="addUserForm">
-      <label>Profile Image *</label>
-      <div class="image-container mt-2">
-        <input #imagePicker class="d-none" type="file" name="user-image" id="user-image"
-          (change)="onImageChange($event)">
-        <img class="user-image" [src]="getUserProfileImage" onerror="this.src='../../../assets/add-image.png'"
-          alt="user-image" (click)="imagePicker.click();">
-      </div>
-      <div class="mt-2">
-        <label for="first-name">First Name *</label>
-        <input id="first-name" type="text" class="form-control" placeholder="First Name" formControlName="first_name">
-      </div>
+    <div class="modal-header">
+        <h5>Add a User</h5>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="addUserForm">
+            <label>Profile Image *</label>
+            <div class="image-container mt-2">
+                <input #imagePicker class="d-none" type="file" name="user-image" id="user-image" (change)="onImageChange($event)">
+                <img class="user-image" [src]="getUserProfileImage" onerror="this.src='../../../assets/add-image.png'" alt="user-image" (click)="imagePicker.click();">
+            </div>
+            <div class="form-group mt-2">
+                <label for="first-name">First Name *</label>
+                <input id="first-name" type="text" class="form-control" placeholder="First Name" formControlName="first_name" [ngClass]="{ 'is-invalid': formControl.first_name.touched && formControl.first_name.errors }">
+                <div *ngIf="(formControl.first_name.touched || formControl.first_name.dirty) && formControl.first_name.errors" class="invalid-feedback">
+                    <div>First Name is required</div>
+                </div>
+            </div>
 
-      <div class="mt-2">
-        <label for="last-name">Last Name *</label>
-        <input id="last-name" type="text" class="form-control" placeholder="Last Name" formControlName="last_name">
-      </div>
+            <div class="form-group mt-2">
+                <label for="last-name">Last Name *</label>
+                <input id="last-name" type="text" class="form-control" placeholder="Last Name" formControlName="last_name" [ngClass]="{ 'is-invalid': formControl.last_name.touched && formControl.last_name.errors }">
+                <div *ngIf="(formControl.last_name.touched || formControl.last_name.dirty) && formControl.last_name.errors" class="invalid-feedback">
+                    <div>Last Name is required</div>
+                </div>
+            </div>
 
-      <div class="mt-2">
-        <label for="last-name">Email *</label>
-        <input id="email" type="text" class="form-control" placeholder="Email" formControlName="email">
-      </div>
+            <div class="form-group mt-2">
+                <label for="last-name">Email *</label>
+                <input id="email" type="text" class="form-control" placeholder="Email" formControlName="email" [ngClass]="{ 'is-invalid': formControl.email.touched && formControl.email.errors }">
+                <div *ngIf="(formControl.email.touched || formControl.email.dirty) && formControl.email.errors" class="invalid-feedback">
+                    <div>Email is required</div>
+                </div>
+            </div>
 
-      <div class="mt-2">
-        <label for="dob">Date of Birth *</label>
-        <input id="dob" type="date" class="form-control" placeholder="Date of Birth" formControlName="dob">
-      </div>
+            <div class="form-group mt-2">
+                <label for="dob">Date of Birth *</label>
+                <input id="dob" type="date" class="form-control" placeholder="Date of Birth" formControlName="dob" [ngClass]="{ 'is-invalid': formControl.dob.touched && formControl.dob.errors }">
+                <div *ngIf="(formControl.dob.touched || formControl.dob.dirty) && formControl.dob.errors" class="invalid-feedback">
+                    <div>DOB is required</div>
+                </div>
+            </div>
 
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-secondary" (click)="modal.close(false);">Cancel</button>
-    <button class="btn btn-primary" [disabled]="!isFormGroupValid" (click)="onSave()">Save</button>
-  </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="modal.close(false);">Cancel</button>
+        <button class="btn btn-primary" [disabled]="!isFormGroupValid" (click)="onSave()">Save</button>
+    </div>
 </div>
